@@ -21,6 +21,15 @@ class Item:
         self.quantity = quantity
         self.__class__.all.append(self)
 
+    def __repr__(self):
+        """ Возвращает строку для отладки в формате
+        ClassName(object_name, object_price, object_quantity
+        """
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return self.name
+
     @property
     def name(self):
         return self.__name
@@ -47,13 +56,16 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        src_path = os.path.dirname(__file__)
+        src_filename = 'items.csv'
+        file_path = os.path.join(src_path, src_filename)
         cls.all.clear()
-        with open('../src/items.csv', newline='') as csvfile:
+        with open(file_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 name = row['name']
-                price = row['price']
-                quantity = row['quantity']
+                price = cls.string_to_number(row['price'])
+                quantity = cls.string_to_number(row['quantity'])
                 cls(name, price, quantity)
 
     @staticmethod
@@ -62,4 +74,5 @@ class Item:
             return int(float(str_num))
         else:
             return int(str_num)
+
 
