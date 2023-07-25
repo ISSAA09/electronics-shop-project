@@ -25,10 +25,13 @@ class Item:
         """ Возвращает строку для отладки в формате
         ClassName(object_name, object_price, object_quantity
         """
-        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity}))"
 
     def __str__(self):
         return self.name
+
+    def __add__(self, other):
+        return self.quantity + other.quantity
 
     @property
     def name(self):
