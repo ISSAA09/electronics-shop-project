@@ -1,5 +1,6 @@
 import pytest
 from src.phone import Phone
+from src.phone import Item
 
 
 @pytest.fixture
@@ -39,4 +40,22 @@ def test_number_of_sim(testing_data):
         testing_data.number_of_sim = -1
         testing_data.number_of_sim = 0
         testing_data.number_of_sim = 1.2
+
+
+def test_item_and_phone_addition():
+    item1 = Item("Смартфон", 10000, 20)
+    phone1 = Phone("iPhone 14 Pro Max", 120_000, 5, 2)
+    assert item1 + phone1 == 25
+
+
+def test_phone_and_phone_addition():
+    phone1 = Phone("iPhone 14", 180_000, 6, 1)
+    phone2 = Phone("Samsung Galaxy S23", 90_000, 6, 8)
+    assert phone1 + phone2 == 12
+
+
+def test_add_method_with_invalid_type():
+    phone1 = Phone("iPhone 14 Pro Max", 120000, 7, 1)
+    with pytest.raises(TypeError):
+        phone1 + "test"
 

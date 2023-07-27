@@ -5,8 +5,8 @@ import pytest
 
 @pytest.fixture
 def testing_data():
-    exmp_1 = Item("Смартфон", 10000, 20)
-    return exmp_1
+    exp_1 = Item("Смартфон", 10000, 20)
+    return exp_1
 
 
 def test_calculate_total_price(testing_data):
@@ -50,3 +50,16 @@ def test_instantiate_from_csv():
     assert item2.price == 75
     assert item1.quantity == 3
     assert len(Item.all) == 5
+
+
+def test_items_addition():
+    exp_1 = Item("Смартфон", 10000, 20)
+    exp_2 = Item("Ноутбук", 120_000, 5)
+    assert exp_1 + exp_2 == 25
+    assert exp_1 + exp_1 == 40
+
+
+def test_add_method_with_invalid_type():
+    item_1 = Item("Смартфон", 10000, 20)
+    with pytest.raises(ValueError):
+        item_1 + 5

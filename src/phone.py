@@ -5,7 +5,17 @@ class Phone(Item):
     """ Класс товара категории Телефон """
     def __init__(self, name: str, price: float, quantity: int, number_of_sim: int) -> None:
         super().__init__(name, price, quantity)
-        self._number_of_sim = number_of_sim
+        self.number_of_sim = number_of_sim
+        self._number_of_sim = number_of_sim  # Инициализируем атрибут без присваивания ему значения
+
+    def __add__(self, other):
+        """
+        Реализация операции сложения для экземпляров класса Phone и Item.
+        Сложение происходит по количеству товара в магазине.
+        """
+        if not isinstance(other, (Phone, Item)):
+            raise TypeError("Нельзя складывать Phone с другими типами кроме себя и Item")
+        return self.quantity + other.quantity
 
     def __repr__(self):
         """
