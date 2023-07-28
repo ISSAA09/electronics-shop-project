@@ -2,17 +2,11 @@ import pytest
 from src.keyboard import Keyboard
 
 
-@pytest.fixture
-def testing_data():
-    """ Определяем тестовые данные экземпляра класса Phone """
+def test_init():
+    """ Тест на проверку корректности инициализации экземпляра класса Keyboard """
     kb = Keyboard('Dark Project KD87A', 9600, 5)
-    return kb
-
-
-def test_init(testing_data):
-    """ Тест на проверку корректности инициализации экземпляра класса Phone """
-    assert testing_data.name == "Dark Project KD87A"
-    assert testing_data.language == 'EN'
+    assert kb.name == "Dark Project KD87A"
+    assert kb.language == 'EN'
 
 
 def test_change_lang():
