@@ -1,5 +1,5 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
-from src.item import Item
+from src.item import Item, FileDamaged , InstantiateCSVError
 import pytest
 
 
@@ -63,3 +63,13 @@ def test_add_method_with_invalid_type():
     item_1 = Item("Смартфон", 10000, 20)
     with pytest.raises(ValueError):
         item_1 + 5
+
+
+def test_instantiate_from_csv_file_not_found():
+    with pytest.raises(FileNotFoundError,):
+        Item.instantiate_from_csv()
+
+
+def test_instantiate_from_csv_file_damaged():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()
